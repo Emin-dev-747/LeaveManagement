@@ -44,6 +44,7 @@ namespace LeaveManagement.Web.Repositories
                     EmployeeId = employee.Id,
                     LeaveTypeId = leaveTypeId,
                     Period = period,
+                    DateCreated = DateTime.Now,
                     NumberOfDays = leaveType.DefaultDays
                 });
             }
