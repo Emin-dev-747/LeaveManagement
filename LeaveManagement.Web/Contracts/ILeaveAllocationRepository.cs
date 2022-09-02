@@ -5,10 +5,11 @@ namespace LeaveManagement.Web.Contracts
 {
     public interface ILeaveAllocationRepository : IGenericRepository<LeaveAllocation>
     {
-        Task LeaveAllocation(int leaveTypeId);
-        Task<bool> AllocationExists(string employeeId, int leaveTypeId, int period);
-        Task<EmployeeAllocationVM> GetEmployeeAllocations(string employeeId);
-        Task<LeaveAllocationEditVM> GetEmployeeAllocation(int id);
-        Task<bool> UpdateEmployeeAllocation(LeaveAllocationEditVM model);
+        Task LeaveAllocationAsync(int leaveTypeId);
+        Task<bool> AllocationExistsAsync(string employeeId, int leaveTypeId, int period);
+        Task<EmployeeAllocationVM> GetEmployeeAllocationsAsync(string employeeId);
+        Task<LeaveAllocation?> GetEmployeeAllocationAsync(string employeeId, int leaveTypeId);
+        Task<LeaveAllocationEditVM> GetEmployeeAllocationAsync(int id);
+        Task<bool> UpdateEmployeeAllocationAsync(LeaveAllocationEditVM model);
     }
 }

@@ -36,14 +36,14 @@ namespace LeaveManagement.Web.Controllers
         // GET: EmployeesController/ViewAllocations/employeeId
         public async Task<IActionResult> ViewAllocations(string id)
         {
-            var model = await _leaveAllocationRepository.GetEmployeeAllocations(id);
+            var model = await _leaveAllocationRepository.GetEmployeeAllocationsAsync(id);
             return View(model);
         }
 
         // GET: EmployeesController/EditAllocation/5
         public async Task<ActionResult> EditAllocation(int id)
         {
-            var model = await _leaveAllocationRepository.GetEmployeeAllocation(id);
+            var model = await _leaveAllocationRepository.GetEmployeeAllocationAsync(id);
             if (model == null)
                 return NotFound();
 
@@ -59,7 +59,7 @@ namespace LeaveManagement.Web.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    if (await _leaveAllocationRepository.UpdateEmployeeAllocation(model))
+                    if (await _leaveAllocationRepository.UpdateEmployeeAllocationAsync(model))
                         return RedirectToAction(nameof(ViewAllocations), new { id = model.EmployeeId });
                 }
             }

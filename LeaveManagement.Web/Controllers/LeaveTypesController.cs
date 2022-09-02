@@ -126,7 +126,7 @@ namespace LeaveManagement.Web.Controllers
         [Authorize(Roles = Roles.Administrator)]
         public async Task<IActionResult> AllocateLeave(int id)
         {
-            await _leaveAllocationRepository.LeaveAllocation(id);
+            await _leaveAllocationRepository.LeaveAllocationAsync(id);
             return RedirectToAction(nameof(Index));
         }
 

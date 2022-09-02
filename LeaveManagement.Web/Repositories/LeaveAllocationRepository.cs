@@ -26,14 +26,14 @@ namespace LeaveManagement.Web.Repositories
             _mapper = mapper;
         }
 
-        public async Task<bool> AllocationExists(string employeeId, int leaveTypeId, int period)
+        public async Task<bool> AllocationExistsAsync(string employeeId, int leaveTypeId, int period)
         {
             return await _context.LeaveAllocations.AnyAsync(q => q.EmployeeId == employeeId
                                                                 && q.LeaveTypeId == leaveTypeId
                                                                 && q.Period == period);
         }
 
-        public async Task<EmployeeAllocationVM> GetEmployeeAllocations(string employeeId)
+        public async Task<EmployeeAllocationVM> GetEmployeeAllocationsAsync(string employeeId)
         {
             var allocations = await _context.LeaveAllocations
                 .Include(q => q.LeaveType)
@@ -45,7 +45,7 @@ namespace LeaveManagement.Web.Repositories
             return employeeAllocationModel;
         }
 
-        public async Task<LeaveAllocationEditVM> GetEmployeeAllocation(int id)
+        public async Task<LeaveAllocationEditVM> GetEmployeeAllocationAsync(int id)
         {
             var allocation = await _context.LeaveAllocations
                 .Include(q => q.LeaveType)
@@ -61,7 +61,7 @@ namespace LeaveManagement.Web.Repositories
             return model;
         }
 
-        public async Task LeaveAllocation(int leaveTypeId)
+        public async Task LeaveAllocationAsync(int leaveTypeId)
         {
             var employees = await _userManager.GetUsersInRoleAsync(Roles.User);
             var period = DateTime.Now.Year;
@@ -70,7 +70,7 @@ namespace LeaveManagement.Web.Repositories
 
             foreach (var employee in employees)
             {
-                if (await AllocationExists(employee.Id, leaveTypeId, period))
+                if (await AllocationExistsAsync(employee.Id, leaveTypeId, period))
                     continue;
 
                 allocations.Add(new LeaveAllocation
@@ -86,7 +86,7 @@ namespace LeaveManagement.Web.Repositories
             await AddRangeAsync(allocations);
         }
 
-        public async Task<bool> UpdateEmployeeAllocation(LeaveAllocationEditVM model)
+        public async Task<bool> UpdateEmployeeAllocationAsync(LeaveAllocationEditVM model)
         {
             var leaveAllocation = await GetAsync(model.Id);
             if (leaveAllocation == null)
@@ -98,6 +98,11 @@ namespace LeaveManagement.Web.Repositories
             await UpdateAsync(leaveAllocation);
 
             return true;
+        }
+
+        public async Task<LeaveAllocation?> GetEmployeeAllocationAsync(string employeeId, int leaveTypeId)
+        {
+            return await _context.LeaveAllocations.FirstOrDefaultAsync(x => x.EmployeeId == employeeId && x.LeaveTypeId == leaveTypeId);
         }
     }
 }
