@@ -7,14 +7,21 @@ namespace LeaveManagement.Web.Models
     {
         [Required]
         [Display(Name ="Start date")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DataType(DataType.Date)] 
         public DateTime StartDate { get; set; }
+
         [Required]
         [Display(Name = "End date")]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}")]
+        [DataType(DataType.Date)] 
         public DateTime EndDate { get; set; }
+
         [Required]
         [Display(Name = "Leave Type")]
         public int LeaveTypeId { get; set; }
         public SelectList? LeaveTypes { get; set; }
+
         [Display(Name = "Request Comments")]
         public string? RequestComments { get; set; }
 
