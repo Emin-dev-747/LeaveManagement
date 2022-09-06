@@ -1,7 +1,7 @@
 ﻿#nullable disable
 
 using System.ComponentModel.DataAnnotations;
-using LeaveManagement.Web.Data;
+using LeaveManagement.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
